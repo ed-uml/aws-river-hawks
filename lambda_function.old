@@ -1,0 +1,90 @@
+import json
+
+# --- START OF CODE ---
+def lambda_handler(event, context):
+    """
+    AWS Lambda function that returns a stylized HTML page.
+    """
+
+    # --- CONFIGURATION ---
+    S3_BUCKET_NAME = "aws-river-hawks"
+    S3_REGION = "us-west-2"
+    # This constructs the public URL for assets
+    s3_base_url = f"https://aws-river-hawks.s3.us-west-2.amazonaws.com" 
+    
+    # Asset URLs constructed from the base
+    river_hawk_logo_url = f"{s3_base_url}/2349.png" 
+    cloud_logo_url = "https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg"
+    font_url = f"{s3_base_url}/roboto.ttf" 
+    
+    # The HTML content
+    html_content = f"""
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>River Hawk Cloud Deployment Week 6</title>
+        
+        <style>
+            @font-face {{
+                font-family: 'Roboto';
+                src: url('{font_url}') format('truetype');
+                font-weight: normal;
+                font-style: normal;
+            }}
+
+            body {{
+                font-family: 'Roboto', sans-serif; 
+                background-color: #004990; /* UML Blue */
+                color: white; 
+                text-align: center; 
+                padding-top: 50px; 
+            }}
+            .header-logo {{
+                display: block; 
+                margin: 0 auto; 
+                max-width: 300px; 
+                height: auto; 
+                margin-bottom: 25px; 
+            }}
+            .main-message {{
+                font-size: 1.8em;
+                margin-bottom: 30px;
+                font-weight: bold;
+            }}
+            .cloud-logo {{
+                max-height: 75px; 
+                margin-left: 10px; 
+                vertical-align: middle;
+                background-color: rgba(255, 255, 255, 0.1);
+                padding: 5px;
+                border-radius: 5px;
+            }}
+        </style>
+    </head>
+    <body>
+        <img src="{river_hawk_logo_url}" 
+             alt="UMass Lowell River Hawks" 
+             class="header-logo">
+
+        <p class="main-message">Rowdy the River Hawk loves the AWS Cloud 🦅</p>
+
+        <p style="margin-top: 50px; font-size: 1.8em;">
+            Served by AWS Lambda 
+            <img src="{cloud_logo_url}" alt="AWS Logo" class="cloud-run-logo">
+        </p>
+    </body>
+    </html>
+    """
+    
+    # --- AWS specific return format (Dictionary) ---
+    return {
+        'statusCode': 200,
+        'headers': {
+            'Content-Type': 'text/html',
+        },
+        'body': html_content
+    }
+
+# --- END OF CODE ---
