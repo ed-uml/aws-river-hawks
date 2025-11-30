@@ -14,7 +14,7 @@ def lambda_handler(event, context):
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>River Hawk Cloud Deployment Week 6</title>
+    <title>River Hawk Cloud Deployment Week 6 AWS</title>
 
     <style>
         @font-face {{
